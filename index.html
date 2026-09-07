@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فێربوونی پیتەکانی عەرەبی</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>فێربوونی پیت و حەرەکاتی عەرەبی</h1>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2>١. ژمارەی پیتەکانی عەرەبی</h2>
+            <p>زمانی عەرەبی پێکهاتووە لە <span id="letter-count" class="badge">0</span> پیتی سەرەکی.</p>
+        </section>
+
+        <section class="card">
+            <h2>٢. گوێگرتن لە دەنگی پیتەکان</h2>
+            <p>لە سەر هەر پیتێک بدە بۆ ئەوەی گوێت لە دەنگەکەی بێت:</p>
+            <div id="alphabet-grid" class="grid-container"></div>
+        </section>
+
+        <section class="card">
+            <h2>٣. ڕاهێنانی حەرەکەکان</h2>
+            <div class="harakat-controls">
+                <select id="letter-select"></select>
+                <div class="harakat-buttons">
+                    <button onclick="speakHarakah('َ')">فەتحە ( َ )</button>
+                    <button onclick="speakHarakah('ُ')">زەمە ( ُ )</button>
+                    <button onclick="speakHarakah('ِ')">کەسڕە ( ِ )</button>
+                    <button onclick="speakHarakah('ْ')">سوکون ( ْ )</button>
+                </div>
+            </div>
+            <div class="display-box" id="harakah-display">أ</div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
