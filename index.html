@@ -3,40 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فێربوونی پیتەکانی عەرەبی</title>
+    <title>فێربوونی زمانی عەرەبی</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header>
-        <h1>فێربوونی پیت و حەرەکاتی عەرەبی</h1>
+    <header class="main-header">
+        <h1>فێربوونی زمانی عەرەبی 📚</h1>
+        <p>کلیک لەسەر پیت یان وشەکان بکە بۆ گوێگرتن لە دەنگ و دیدەنی وەرگێڕانی کوردی!</p>
     </header>
 
     <main class="container">
+        <!-- بەشی پیتەکان -->
         <section class="card">
-            <h2>١. ژمارەی پیتەکانی عەرەبی</h2>
-            <p>زمانی عەرەبی پێکهاتووە لە <span id="letter-count" class="badge">0</span> پیتی سەرەکی.</p>
+            <h2>١. پیتەکانی زمانی عەرەبی</h2>
+            <div class="letters-grid" id="lettersContainer"></div>
         </section>
 
+        <!-- بەشی وشەکان و وەرگێڕانی کوردی -->
         <section class="card">
-            <h2>٢. گوێگرتن لە دەنگی پیتەکان</h2>
-            <p>لە سەر هەر پیتێک بدە بۆ ئەوەی گوێت لە دەنگەکەی بێت:</p>
-            <div id="alphabet-grid" class="grid-container"></div>
+            <h2>٢. وشە گرنگەکان و وەرگێڕانی کوردی</h2>
+            <div class="words-grid" id="wordsContainer"></div>
         </section>
 
-        <section class="card">
-            <h2>٣. ڕاهێنانی حەرەکەکان</h2>
-            <div class="harakat-controls">
-                <select id="letter-select"></select>
-                <div class="harakat-buttons">
-                    <button onclick="speakHarakah('َ')">فەتحە ( َ )</button>
-                    <button onclick="speakHarakah('ُ')">زەمە ( ُ )</button>
-                    <button onclick="speakHarakah('ِ')">کەسڕە ( ِ )</button>
-                    <button onclick="speakHarakah('ْ')">سوکون ( ْ )</button>
-                </div>
-            </div>
-            <div class="display-box" id="harakah-display">أ</div>
-        </section>
+        <!-- چوارگۆشەی پێشاندانی وەرگێڕان -->
+        <div id="translationBox" class="translation-box">
+            <p id="selectedWord">کلیک لەسەر وشەیەک یان پیتێک بکە...</p>
+            <h3 id="kurdishMeaning">-</h3>
+        </div>
     </main>
 
     <script src="script.js"></script>
