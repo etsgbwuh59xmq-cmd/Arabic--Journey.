@@ -36,4 +36,116 @@
 
     <script src="script.js"></script>
 </body>
-</html>
+</html> // گرێدانی توخمەکان
+const settingBtn = document.getElementById('setting-btn');
+const settingModal = document.getElementById('setting-modal');
+const closeBtn = document.getElementsByClassName('close-btn')[0];
+const languageSelect = document.getElementById('language-select');
+const themeToggleBtn = document.getElementById('theme-toggle-btn');
+const bgCircles = document.querySelectorAll('#bg-color-palette .color-circle');
+const btnCircles = document.querySelectorAll('#btn-color-palette .color-circle');
+
+// کردنەوە و داخستنی سە팅گ
+settingBtn.onclick = () => settingModal.style.display = "block";
+closeBtn.onclick = () => settingModal.style.display = "none";
+window.onclick = (event) => {
+    if (event.target == settingModal) settingModal.style.display = "none";
+};
+
+// ==========================================
+// وەرگرتنی ڕێکخستنە پاشەکەوتکراوەکان کاتێک ئەپەکە دەكرێتەوە
+// ==========================================
+window.addEventListener('DOMContentLoaded', () => {
+    // ۱. پشکنینی زمان (ئەگەر پێشتر هەڵبژاردبێت ئەوە دەیگرێتەوە، ئەگەر نەخێر لە سەرەتادا بە ئینگلیزی دەست پێدەکات)
+    const savedLang = localStorage.getItem('app_lang') || 'en';
+    languageSelect.value = savedLang;
+    applyLanguage(savedLang);
+
+    // ۲. پشکنینی ڕەنگی پشتەوەی پاشەکەوتکراو
+    const savedBgColor = localStorage.getItem('app_bg_color');
+    if (savedBgColor) {
+        document.body.style.backgroundColor = savedBgColor;
+    }
+
+    // ۳. پشکنینی ڕەنگی دوگمەکان کە پاشەکەوتکراون
+    const savedBtnColor = localStorage.getItem('app_btn_color');
+    if (savedBtnColor) {
+        applyButtonColor(savedBtnColor);
+    }
+
+    // ٤. پشکنینی Dark / Light Mode کە پاشەکەوتکراوە
+    const savedTheme = localStorage.getItem('app_theme');
+    if (savedTheme === 'dark') {
+        document.body.style.backgroundColor = "#121212";
+        document.body.style.color = "#ffffff";
+        isDarkMode = true;
+    } else {
+        document.body.style.backgroundColor = savedBgColor || "#ffffff";
+        document.body.style.color = "#000000";
+        isDarkMode = false;
+    }
+});
+
+// گۆڕینی زمان و پاشەکەوتکردنی
+languageSelect.addEventListener('change', (e) => {
+    const lang = e.target.value;
+    localStorage.setItem('app_lang', lang);
+    applyLanguage(lang);
+});
+
+function applyLanguage(lang) {
+    if(lang === 'en') {
+        console.log("Welcome! App started in English.");
+        // لێرە دەتوانیت دەقەکان بگۆڕیت بۆ ئینگلیزی
+    } else {
+        console.log("بەخێر هاتیت!");
+        // لێرە دەتوانیت دەقەکان بگۆڕیت بۆ کوردی
+    }
+}
+
+// گۆڕینی ڕەنگی پشتەوە (Background) و پاشەکەوتکردنی
+bgCircles.forEach(circle => {
+    circle.addEventListener('click', () => {
+        const selectedColor = circle.getAttribute('data-color');
+        document.body.style.backgroundColor = selectedColor;
+        // پاشەکەوتکردنی ڕەنگەکە
+        localStorage.setItem('app_bg_color', selectedColor);
+        localStorage.setItem('app_theme', 'light'); // ئەگەر ڕەنگی پشتەوە گۆڕی، دەچێتە دۆخی ڕووناک
+        isDarkMode = false;
+    });
+});
+
+// گۆڕینی ڕەنگی دوگمەکان (Buttons) و پاشەکەوتکردنی
+btnCircles.forEach(circle => {
+    circle.addEventListener('click', () => {
+        const selectedColor = circle.getAttribute('data-color');
+        applyButtonColor(selectedColor);
+        // پاشەکەوتکردنی ڕەنگی دوگمەکان
+        localStorage.setItem('app_btn_color', selectedColor);
+    });
+});
+
+function applyButtonColor(color) {
+    const allButtons = document.querySelectorAll('button:not(.setting-icon-btn):not(.close-btn)');
+    allButtons.forEach(btn => {
+        btn.style.backgroundColor = color;
+        btn.style.color = "#fff";
+    });
+}
+
+// Dark / Light Mode Toggle و پاشەکەوتکردنی
+let isDarkMode = false;
+themeToggleBtn.addEventListener('click', () => {
+    isDarkMode = !isDarkMode;
+    if (isDarkMode) {
+        document.body.style.backgroundColor = "#121212";
+        document.body.style.color = "#ffffff";
+        localStorage.setItem('app_theme', 'dark');
+    } else {
+        // ئەگەر لایت مۆد بگەڕێتەوە سەر ڕەنگی پێشووی پشتەوە، یان سپی
+        const defaultBg = localStorage.getItem('app_bg_color') || "#ffffff";
+        document.body.style.backgroundColor = defaultBg;
+        document.body.style.color = "#000000";
+        localStorage.setItem('app_theme', 'light');
+    }
+});
